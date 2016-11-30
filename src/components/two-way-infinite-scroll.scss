@@ -1,0 +1,74 @@
+//@import "../../globals.core";
+
+// Infinite Scroll
+// --------------------------------------------------
+
+$infinite-scroll-loading-margin:         0 0 32px 0 !default;
+$infinite-scroll-loading-color:          #666 !default;
+$infinite-scroll-loading-text-margin:    4px 32px 0 32px !default;
+
+
+two-way-infinite-scroll {
+    display: block;
+    width: 100%;
+    height:1px !important;
+}
+
+
+// Infinite Scroll Content
+// --------------------------------------------------
+
+two-way-infinite-scroll-content {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100%;
+    min-height: 1px;
+    height:1px;
+
+    text-align: center;
+
+    //.infinite-loading {
+    //    position: fixed;
+    //    background:rgba(0,0,0,0.2);
+    //    top:0;
+    //    left:0;
+    //    right:0;
+    //    bottom:0;
+    //    z-index:10000;
+    //    margin:0;
+    //}
+    //.infinite-loading-spinner {
+    //    position: absolute;
+    //    top:50%;
+    //    left:50%;
+    //}
+}
+
+.infinite-loading {
+    display: none;
+
+    margin: $infinite-scroll-loading-margin;
+
+    width: 100%;
+}
+
+.infinite-loading-text {
+    margin: $infinite-scroll-loading-text-margin;
+
+    color: $infinite-scroll-loading-color;
+}
+
+
+// Infinite Scroll Content States
+// --------------------------------------------------
+
+two-way-infinite-scroll-content[state=loading] .infinite-loading {
+    display: block;
+}
+
+two-way-infinite-scroll-content[state=disabled] {
+    display: none;
+}

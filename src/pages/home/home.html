@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Infinite scroll example</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<div #contentListParent>
+		<ion-list>
+			<ion-item *ngFor="let client of clients; let i = index;">
+				<span class="client-id">Id: {{client.id}}</span><span class="client-name">{{client.name}}</span>
+				<span class="client-index">Index: {{i}}</span>
+			</ion-item>
+		</ion-list>
+		<two-way-infinite-scroll (ionInfinite)="doInfinite($event)">
+			<two-way-infinite-scroll-content></two-way-infinite-scroll-content>
+		</two-way-infinite-scroll>
+	</div>
+</ion-content>
