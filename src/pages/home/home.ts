@@ -112,7 +112,7 @@ export class HomePage {
   scrollContent(startIndex: number = 0) {
     let listItems = this.contentListParent.nativeElement.querySelectorAll('ion-item');
     let offsetTop = !!listItems[startIndex] && startIndex > 0 ? listItems[startIndex].offsetTop : 0;
-    this.content.scrollTo(0, offsetTop, 0);
+    this.content.scrollTo(0, offsetTop, 100);
   }
 
 }

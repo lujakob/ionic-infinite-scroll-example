@@ -2,7 +2,7 @@ import {Directive, ElementRef, EventEmitter, Host, Input, NgZone, Output} from '
 
 import {clearNativeTimeout, nativeTimeout} from 'ionic-angular/util/dom';
 
-import {Content} from 'ionic-angular';
+import {Content,ScrollEvent} from 'ionic-angular';
 
 /**
  * @name InfiniteScroll
@@ -18,7 +18,7 @@ import {Content} from 'ionic-angular';
 export class TwoWayInfiniteScroll {
   _lastCheck:number = 0;
   _highestY:number = 0;
-  _scLsn:Function;
+  _scLsn:any;
   _thr:string = '1%';
   _thrPx:number = 1;
   _thrPc:number = 0;
@@ -127,9 +127,9 @@ export class TwoWayInfiniteScroll {
     }
 
     // on arrive bottom
-    //
+    // this value might be adjusted, depending on list item height and content container height
     let customOffset = 100;
-    let distanceFromInfinite = ((d.scrollHeight - infiniteHeight) - d.scrollTop) - reloadY + customOffset;
+    let distanceFromInfinite = ((d.scrollHeight - infiniteHeight) - d.scrollTop) - reloadY - customOffset;
 
     if (this.stateBottom === STATE_ENABLED && distanceFromInfinite < 0) {
       clearNativeTimeout(this._tmId);
@@ -209,16 +209,16 @@ export class TwoWayInfiniteScroll {
     // this._setListeners(shouldEnable);
   }
 
-  _setListeners(shouldListen:boolean) {
+  _setListeners(shouldListen: boolean) {
     if (this._init) {
       if (shouldListen) {
         if (!this._scLsn) {
-          this._zone.runOutsideAngular(() => {
-            this._scLsn = this._content.addScrollListener(this._onScroll.bind(this));
+          this._scLsn = this._content.ionScroll.subscribe((ev: ScrollEvent) => {
+            this._onScroll();
           });
         }
       } else {
-        this._scLsn && this._scLsn();
+        this._scLsn && this._scLsn.unsubscribe();
         this._scLsn = null;
       }
     }
